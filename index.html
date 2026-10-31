@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#fff0f3">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>🎂 賴品岑 (Patty) 生日驚喜 ‧ Happy Birthday ✨</title>
+
+  <!-- Google Fonts: Playfair Display, Caveat, Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@700&family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+
+  <!-- Master Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+
+  <!-- Background Ambient Floating Sparks -->
+  <canvas id="ambient-canvas"></canvas>
+
+  <!-- Unboxing Opening Overlay (點擊拆禮物盒展開卡片) -->
+  <div id="unboxingOverlay" class="unboxing-overlay" title="點擊拆開禮物" style="display: none;">
+    <div class="unboxing-gift-wrapper">
+      <div class="gift-box-visual">
+        <div class="gift-bow">🎁</div>
+      </div>
+    </div>
+    <h2 class="unboxing-title">有一份專屬心意送達</h2>
+    <div class="unboxing-prompt">
+      <span>✨ 輕觸禮物盒 ‧ 開啟生日驚喜 ✨</span>
+    </div>
+  </div>
+
+  <!-- Top Floating Utility Bar (Music + Admin Settings) -->
+  <header class="floating-bar">
+    <button id="musicToggleBtn" class="music-toggle-btn" aria-label="切換背景音樂">
+      <span class="music-icon">🎵</span>
+      <span class="music-label">播放生日旋律</span>
+    </button>
+
+    <button id="adminTriggerBtn" class="admin-trigger-btn" title="後台解鎖與時間設定" style="display: none !important;">
+      ⚙️
+    </button>
+  </header>
+
+  <!-- Main App Shell -->
+  <main class="app-container">
+
+    <!-- ========================================================
+         VIEW 1: COUNTDOWN LOCK SCREEN (倒計時等待頁面)
+         ======================================================== -->
+    <section id="countdownScreen" class="countdown-screen">
+      <div class="countdown-card">
+        <div class="countdown-badge">
+          <span>✨</span>
+          <span>SPECIAL SURPRISE</span>
+        </div>
+
+        <h1 id="countdownTitle" class="countdown-title">距離 賴品岑 (Patty) 的專屬驚喜解鎖還有</h1>
+        <p id="countdownSubtitle" class="countdown-subtitle">這是一份為妳精心準備的生日特別禮物，時間一到自動揭曉 🎂</p>
+
+        <!-- Digital Flip Countdown Grid -->
+        <div class="countdown-grid">
+          <div class="countdown-item">
+            <span id="daysVal" class="countdown-val">00</span>
+            <span class="countdown-lbl">Days</span>
+          </div>
+          <div class="countdown-item">
+            <span id="hoursVal" class="countdown-val">00</span>
+            <span class="countdown-lbl">Hours</span>
+          </div>
+          <div class="countdown-item">
+            <span id="minutesVal" class="countdown-val">00</span>
+            <span class="countdown-lbl">Mins</span>
+          </div>
+          <div class="countdown-item">
+            <span id="secondsVal" class="countdown-val">00</span>
+            <span class="countdown-lbl">Secs</span>
+          </div>
+        </div>
+
+        <div class="countdown-hint-box">
+          <div class="pulse-dot"></div>
+          <span>倒數計時即時同步中 ‧ 請保持期待</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================
+         VIEW 2: CELEBRATION MAIN PAGE (卡片互動主頁面)
+         ======================================================== -->
+    <section id="celebrationView" class="celebration-view" style="display: none;">
+
+      <!-- Hero Header -->
+      <header class="hero-section">
+        <div class="hero-subtitle-badge">
+          <span>🎂</span>
+          <span>HAPPY BIRTHDAY TO YOU</span>
+          <span>✨</span>
+        </div>
+        <h1 class="hero-title">Happy Birthday</h1>
+        <div class="hero-name-wrapper">
+          <span class="hero-name" id="heroChineseName">賴品岑</span>
+          <span class="hero-name-en" id="heroEnglishName">Patty (Catherine)</span>
+        </div>
+        <p id="heroTagline" class="hero-tagline">願妳的每一歲，都奔走在自己的熱愛裡。生日快樂，永遠閃閃發光！</p>
+      </header>
+
+      <!-- Centerpiece Dual Photos (中間放的兩張照片) -->
+      <section class="center-photo-section">
+        <div class="photo-section-intro">
+          <span class="section-tag">PRECIOUS MEMORIES</span>
+          <h2 class="section-title">✨ 品岑的專屬回憶相簿 ✨</h2>
+          <p class="section-desc">每一張照片，都是我們在一起最閃閃發光的瞬間！</p>
+        </div>
+
+        <div class="dual-polaroids-container">
+
+          <!-- Polaroid 1: 賴品岑燦爛自拍大合照 -->
+          <div class="polaroid-frame polaroid-left" data-lightbox="assets/photo1.jpg" title="點擊放大查看相片">
+            <div class="washi-tape washi-tape-gold"></div>
+            <div class="photo-wrapper photo-wrapper-selfie">
+              <img src="assets/photo1.jpg" alt="賴品岑與好友開心自拍" class="photo-img-selfie" loading="eager">
+              <div class="photo-badge-overlay">
+                <span>🔍 點擊看大圖</span>
+              </div>
+            </div>
+            <div class="polaroid-caption">
+              <span id="photo1CaptionText" class="caption-handwritten">✨ 願妳的每一歲都奔走在熱愛裡 ‧ 永遠閃亮的 Patty ✨</span>
+              <span class="caption-date">SMILES & SWEET MEMORIES WITH BESTIES</span>
+            </div>
+          </div>
+
+          <!-- Polaroid 2: 全班為 Catherine 慶祝合照 -->
+          <div class="polaroid-frame polaroid-right" data-lightbox="assets/photo2.jpg" title="點擊放大查看相片">
+            <div class="washi-tape washi-tape-rose"></div>
+            <div class="photo-wrapper photo-wrapper-class">
+              <img src="assets/photo2.jpg" alt="大家指向 Catherine 電子白板" class="photo-img-class" loading="eager">
+              <div class="photo-badge-overlay">
+                <span>🔍 點擊看大圖</span>
+              </div>
+            </div>
+            <div class="polaroid-caption">
+              <span id="photo2CaptionText" class="caption-handwritten">💖 友情展開第三年 ‧ 全世界最棒的 Catherine 賴品岑 💖</span>
+              <span class="caption-date">THE ONE AND ONLY STAR ‧ CATHERINE</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Scratch-Off Lottery Section (刮刮樂雙重驚喜抽獎) -->
+      <section class="scratch-section">
+        <div class="section-header">
+          <span class="section-tag">INTERACTIVE SURPRISE</span>
+          <h2 class="section-title">✨ 壽星專屬刮刮樂 ✨</h2>
+          <p class="section-desc">用手指或滑鼠輕輕刮開塗層，領取兩份好友準備的小心意！</p>
+        </div>
+
+        <div class="scratch-cards-grid">
+
+          <!-- Ticket 1: 飲料一杯 -->
+          <div class="scratch-card" id="scratchCard1">
+            <div class="scratch-card-header">
+              <div class="scratch-title-group">
+                <div class="scratch-icon-box">☕</div>
+                <h3 class="scratch-card-title" id="prize1CardTitle">今日特調 ‧ 飲品招待</h3>
+              </div>
+              <span class="scratch-card-no">TICKET #01</span>
+            </div>
+
+            <!-- Scratch Canvas Area -->
+            <div class="scratch-area">
+              <div class="prize-content prize-drink">
+                <span class="prize-icon-large">☕</span>
+                <h4 class="prize-name" id="prize1Title">☕ 今日特調 ‧ 飲料一杯兌換券</h4>
+                <p class="prize-details" id="prize1Desc">憑此券可兌換全品項特調飲品 / 星巴克任選一杯，好友隨時買單！</p>
+                <span class="prize-code-tag" id="prize1Code">BDAY-DRINK-2026</span>
+              </div>
+              <canvas class="scratch-canvas"></canvas>
+            </div>
+
+            <div class="scratch-card-footer">
+              <span class="scratch-status-text">👆 刮開塗層超過 50% 自動解鎖</span>
+              <div style="display: flex; gap: 6px;">
+                <button class="quick-reveal-btn">✨ 一鍵刮開</button>
+                <button class="redeem-copy-btn" data-code="BDAY-DRINK-2026">複製兌換碼</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ticket 2: 神秘小禮一個 -->
+          <div class="scratch-card" id="scratchCard2">
+            <div class="scratch-card-header">
+              <div class="scratch-title-group">
+                <div class="scratch-icon-box">🎁</div>
+                <h3 class="scratch-card-title" id="prize2CardTitle">命中注定 ‧ 神秘禮物</h3>
+              </div>
+              <span class="scratch-card-no">TICKET #02</span>
+            </div>
+
+            <!-- Scratch Canvas Area -->
+            <div class="scratch-area">
+              <div class="prize-content prize-gift">
+                <span class="prize-icon-large">🎁</span>
+                <h4 class="prize-name" id="prize2Title">🎁 命中注定 ‧ 神秘小禮一個</h4>
+                <p class="prize-details" id="prize2Desc">由好友親自挑選並為妳準備的神秘生日禮物，見面時親手奉上！</p>
+                <span class="prize-code-tag" id="prize2Code">BDAY-GIFT-999</span>
+              </div>
+              <canvas class="scratch-canvas"></canvas>
+            </div>
+
+            <div class="scratch-card-footer">
+              <span class="scratch-status-text">👆 刮開塗層超過 50% 自動解鎖</span>
+              <div style="display: flex; gap: 6px;">
+                <button class="quick-reveal-btn">✨ 一鍵刮開</button>
+                <button class="redeem-copy-btn" data-code="BDAY-GIFT-999">複製兌換碼</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Heartfelt Card Letter Section (最後的卡片文本) -->
+      <section class="letter-section">
+        <div class="section-header">
+          <span class="section-tag">WARM WISHES</span>
+          <h2 class="section-title">💌 寫給 Patty 的一封信</h2>
+        </div>
+
+        <article class="envelope-wrapper">
+          <div class="letter-header">
+            <span class="letter-to">To <span id="letterToName">Patty</span> <small style="font-size: 14px; color: var(--rose-gold);">(Catherine)</small>:</span>
+            <div class="wax-seal-badge" id="waxSealSecretBtn" title="Wax Seal Monogram">岑</div>
+          </div>
+
+          <div id="letterBodyText" class="letter-body">不知不覺，已經國三了，
+或許國一的我們都沒有想過一個英文班，竟然有辦法英文班不在，但卻能把我們這群人聚在一起。
+
+從 Allen 到 Angel 再到 Catherine，我們的友情竟然已經要展開第三年了，想想就覺得好特別！
+第一次見面的時候，我的第一反應竟然是「這個女生蠻好看的」。
+
+我們可能以前不常聊天，但在這段時間，聽了英文班的八卦，再到王先生勸妳不要戀愛腦，一直到最後面開始在 Catherine 的課上聽 Gina 還有她的感情史，甚至還有 petroleum 跟諧音的 gas therine……
+
+好啦總而言之，謝謝妳有來上英文班，
+認識妳、跟妳當朋友，真是件人生難得的好事啊！
+
+祝妳跟妳的老公們 99，
+成績變好，人就不用變漂亮了，因為本來就很漂亮！</div>
+
+          <footer class="letter-footer">
+            <span id="letterSignoffText" class="letter-signoff">Bobo 上</span>
+          </footer>
+        </article>
+      </section>
+
+      <!-- Secret Easter Egg Trigger (點擊蛋糕5次觸發隱藏彩蛋) -->
+      <button id="easterEggBtn" class="easter-egg-btn" title="點點看蛋糕會有驚喜喔！">
+        🎂
+      </button>
+      <p class="easter-egg-hint">點擊蛋糕 5 次解鎖隱藏彩蛋 🎈</p>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================
+       MODAL 1: PHOTO LIGHTBOX (相片全螢幕高解析度檢視)
+       ======================================================== -->
+  <div id="photoLightbox" class="photo-lightbox" title="點擊任意處關閉">
+    <img id="lightboxImg" src="assets/photo1.jpg" alt="Catherine Full View">
+  </div>
+
+  <!-- ========================================================
+       MODAL 2: ADMIN BACKEND DASHBOARD (後台控制管理面板)
+       ======================================================== -->
+  <div id="adminModal" class="admin-modal-backdrop">
+    <div class="admin-modal-card">
+
+      <header class="admin-header">
+        <div class="admin-title-box">
+          <h3>⚙️ 生日驚喜後台管理</h3>
+          <p>解鎖狀態、定時開放、倒計時與祝詞卡片設定</p>
+        </div>
+        <button id="adminCloseBtn" class="admin-close-btn" title="關閉後台">✕</button>
+      </header>
+
+      <div class="admin-body">
+
+        <!-- 1. 解鎖模式設定 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span>⏱️</span>
+            <span>解鎖模式控制</span>
+          </div>
+
+          <div class="mode-switch-group">
+            <label class="mode-option">
+              <input type="radio" name="adminMode" value="unlocked">
+              <span class="mode-label">🟢 立即開放</span>
+            </label>
+            <label class="mode-option">
+              <input type="radio" name="adminMode" value="timer" checked>
+              <span class="mode-label">⏳ 定時倒數</span>
+            </label>
+            <label class="mode-option">
+              <input type="radio" name="adminMode" value="locked">
+              <span class="mode-label">🔒 強制鎖定</span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="adminTargetTime">開放解鎖日期與時間（用戶端倒數至此時）：</label>
+            <input type="datetime-local" id="adminTargetTime" class="form-input">
+
+            <!-- Quick time buttons -->
+            <div class="quick-time-buttons">
+              <button type="button" class="quick-time-btn" data-time-action="plus5m">+5 分鐘（快速測試）</button>
+              <button type="button" class="quick-time-btn" data-time-action="plus1h">+1 小時</button>
+              <button type="button" class="quick-time-btn" data-time-action="midnight">今晚 00:00 (換日)</button>
+              <button type="button" class="quick-time-btn" data-time-action="tomorrow12">明天中午 12:00</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 用戶端倒計時文案 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span>⏳</span>
+            <span>用戶端倒計時文案</span>
+          </div>
+
+          <div class="form-group">
+            <label for="adminCountdownTitle">倒計時主標題：</label>
+            <input type="text" id="adminCountdownTitle" class="form-input" placeholder="距離 Catherine 的專屬驚喜解鎖還有">
+          </div>
+
+          <div class="form-group">
+            <label for="adminCountdownSubtitle">倒計時副標題：</label>
+            <input type="text" id="adminCountdownSubtitle" class="form-input" placeholder="這是一份為妳精心準備的生日特別禮物，時間一到自動揭曉 🎂">
+          </div>
+        </div>
+
+        <!-- 3. 生日卡片祝詞文本 (用戶要求自訂文本) -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span>💌</span>
+            <span>最後的卡片祝詞文本</span>
+          </div>
+
+          <div class="form-group">
+            <label for="adminCardLetter">在這裡直接貼上或修改妳寫給她的卡片內容：</label>
+            <textarea id="adminCardLetter" class="form-textarea" placeholder="在這裡輸入寫給她的溫馨祝詞..."></textarea>
+          </div>
+        </div>
+
+        <!-- 4. 刮刮樂獎品內容自訂 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span>🎁</span>
+            <span>刮刮樂獎項內容自訂</span>
+          </div>
+
+          <div class="form-group">
+            <label>獎項 1 (飲料一杯)：</label>
+            <input type="text" id="adminPrize1Title" class="form-input" placeholder="☕ 今日特調 ‧ 飲料一杯兌換券" style="margin-bottom: 6px;">
+            <input type="text" id="adminPrize1Desc" class="form-input" placeholder="憑此券可兌換全品項特調飲品 / 星巴克任選一杯！" style="margin-bottom: 6px;">
+            <input type="text" id="adminPrize1Code" class="form-input" placeholder="兌換代碼 (例: BDAY-DRINK-2026)">
+          </div>
+
+          <div class="form-group" style="margin-top: 14px;">
+            <label>獎項 2 (神秘小禮物)：</label>
+            <input type="text" id="adminPrize2Title" class="form-input" placeholder="🎁 命中注定 ‧ 神秘小禮一個" style="margin-bottom: 6px;">
+            <input type="text" id="adminPrize2Desc" class="form-input" placeholder="由好友親自挑選並為妳準備的神秘生日禮物！" style="margin-bottom: 6px;">
+            <input type="text" id="adminPrize2Code" class="form-input" placeholder="兌換代碼 (例: BDAY-GIFT-999)">
+          </div>
+        </div>
+
+        <!-- 5. 壽星姓名與相片描述 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span>🖼️</span>
+            <span>壽星姓名與相片文字</span>
+          </div>
+
+          <div class="form-group">
+            <label for="adminRecipientName">壽星名字：</label>
+            <input type="text" id="adminRecipientName" class="form-input" value="賴品岑">
+          </div>
+
+          <div class="form-group">
+            <label for="adminPhotoCaption">相片下方拍立得文字：</label>
+            <input type="text" id="adminPhotoCaption" class="form-input" placeholder="✨ 燦爛笑容的品岑 ‧ 每一天都要這麼開心！ ✨">
+          </div>
+        </div>
+
+        <!-- 6. 測試與備份工具 -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span>🧪</span>
+            <span>測試與資料備份</span>
+          </div>
+
+          <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+            <button type="button" id="adminTestCountdownBtn" class="quick-time-btn" style="padding: 6px 12px;">🎉 模擬倒數歸零解鎖動效</button>
+            <button type="button" id="adminResetScratchBtn" class="quick-time-btn" style="padding: 6px 12px;">🔄 重設刮刮樂塗層</button>
+            <button type="button" id="adminExportBtn" class="quick-time-btn" style="padding: 6px 12px;">📥 匯出設定 (JSON)</button>
+            <button type="button" id="adminImportBtn" class="quick-time-btn" style="padding: 6px 12px;">📤 匯入設定</button>
+          </div>
+        </div>
+
+        <!-- 7. 專屬分享連結 (給 Patty / 訪客) -->
+        <div class="admin-section">
+          <div class="admin-section-title">
+            <span>🔗</span>
+            <span>分享給 Patty 的專屬連結 (無後台圖示)</span>
+          </div>
+          <p style="font-size: 13px; color: #666; margin-bottom: 10px; line-height: 1.5;">
+            發佈至 GitHub 後，Patty 與訪客開啟只會看見倒數或卡片，完全不會出現後台齒輪與管理功能。
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 8px;">
+            <button type="button" id="adminCopyPublicBtn" class="quick-time-btn" style="padding: 8px 12px; text-align: left;">
+              📋 複製【正式公開連結】(依設定倒數或解鎖)
+            </button>
+            <button type="button" id="adminCopyUnlockedBtn" class="quick-time-btn" style="padding: 8px 12px; text-align: left;">
+              🔓 複製【強制解鎖連結】(?mode=unlocked 直接看內容)
+            </button>
+            <button type="button" id="adminCopyAdminBtn" class="quick-time-btn" style="padding: 8px 12px; text-align: left;">
+              🔑 複製【管理員專用後台連結】(?admin=bobo)
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <footer class="admin-footer">
+        <button id="adminResetBtn" class="admin-btn admin-btn-secondary">恢復預設值</button>
+        <button id="adminSaveBtn" class="admin-btn admin-btn-primary">儲存並即時套用</button>
+      </footer>
+
+    </div>
+  </div>
+
+  <!-- Toast Notification Feedback -->
+  <div id="toastNotice" class="toast-notice"></div>
+
+  <!-- Scripts -->
+  <script src="js/app.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
