@@ -698,8 +698,10 @@ const App = {
     // Unboxing Overlay
     const unboxOverlay = document.getElementById('unboxingOverlay');
     if (unboxOverlay) {
-      unboxOverlay.addEventListener('click', () => {
+      const dismissUnbox = (e) => {
+        if (e && e.type === 'touchend') e.preventDefault();
         unboxOverlay.classList.add('opened');
+        unboxOverlay.style.display = 'none';
         AudioSynth.startMelody();
         if (window.confetti) {
           window.confetti({
@@ -708,7 +710,9 @@ const App = {
             origin: { y: 0.6 }
           });
         }
-      });
+      };
+      unboxOverlay.addEventListener('click', dismissUnbox);
+      unboxOverlay.addEventListener('touchend', dismissUnbox);
     }
 
     // Photo Lightbox & 3D Tilt for all polaroid frames
