@@ -1,6 +1,6 @@
-# ✨ 賴品岑 (Patty / Catherine) 生日驚喜 ‧ 專屬互動卡片
+# ✨ 賴品岑 (Patty) 生日驚喜 ‧ 專屬互動卡片
 
-專為好友 **賴品岑 (Patty / Catherine)** 打造的高質感互動式生日電子卡片與刮刮樂系統，由 **Bobo** 準備。針對手機與 **Instagram 內建瀏覽器 (In-App WebView)** 進行極致排版與流暢度優化。
+專為好友 **賴品岑 (Patty)** 打造的高質感互動式生日電子卡片與刮刮樂系統，由 **Bobo** 準備。針對手機與 **Instagram 內建瀏覽器 (In-App WebView)** 進行極致排版與流暢度優化。
 
 🌐 **線上公開網址 (GitHub Pages)**:
 👉 **[https://bonny430.github.io/patty-birthday/](https://bonny430.github.io/patty-birthday/)**
@@ -15,8 +15,8 @@
    - **強制鎖定**：維持倒數期待感。
 
 2. **📸 雙主角拍立得相框 (Dual Polaroids)**
-   - **Photo 1 (`assets/photo1.jpg`)**：賴品岑與好友開心自拍大合照，搭配手寫字祝詞與金色和紙膠帶。
-   - **Photo 2 (`assets/photo2.jpg`)**：全班朋友指向 Catherine 白板的經典回憶合照，搭配玫瑰金和紙膠帶。
+   - **Photo 1 (`assets/photo1.jpg`)**：賴品岑與好友開心自拍大合照，搭配手寫字祝詞：`✨ 願妳的每一歲都奔走在熱愛裡 ‧ 永遠閃亮的 Patty ✨`。
+   - **Photo 2 (`assets/photo2.jpg`)**：全班朋友在 Catherine 英文課上指向白板的經典回憶合照，搭配手寫字祝詞：`💖 在 Catherine 課堂展開第三年友情 ‧ 全世界最棒的 Patty 賴品岑 💖`。
    - 支援滑鼠/觸控 3D 視差傾角微動效與點擊高解析度全螢幕檢視。
 
 3. **🎫 雙重互動刮刮樂抽獎系統（飲料一杯 + 神秘小禮）**

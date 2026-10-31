@@ -13,12 +13,12 @@ const ConfigManager = {
       targetTime: '2026-11-01T00:00',
       recipientName: '賴品岑',
       recipientNickname: 'Patty',
-      recipientEnglish: 'Catherine',
+      recipientEnglish: 'Patty',
       countdownTitle: '距離 賴品岑 (Patty) 的專屬驚喜解鎖還有',
       countdownSubtitle: '這是一份為妳精心準備的生日特別禮物，時間一到自動揭曉 🎂',
       heroTagline: '願妳的每一歲，都奔走在自己的熱愛裡。生日快樂，永遠閃閃發光！',
       photo1Caption: '✨ 願妳的每一歲都奔走在熱愛裡 ‧ 永遠閃亮的 Patty ✨',
-      photo2Caption: '💖 友情展開第三年 ‧ 全世界最棒的 Catherine 賴品岑 💖',
+      photo2Caption: '💖 在 Catherine 課堂展開第三年友情 ‧ 全世界最棒的 Patty 賴品岑 💖',
       prizes: [
         {
           id: 'drink',
@@ -47,7 +47,9 @@ const ConfigManager = {
 認識妳、跟妳當朋友，真是件人生難得的好事啊！
 
 祝妳跟妳的老公們 99，
-成績變好，人就不用變漂亮了，因為本來就很漂亮！`,
+成績變好，人就不用變漂亮了，因為本來就很漂亮！
+
+（我還記得妳的老公們：安乾鎬、嚴成玹、金泰亨、崔秀彬、崔然竣 💖）`,
       authorSign: 'Bobo 上',
       easterEggMessage: '🎉 恭喜發現隱藏彩蛋！祝 Patty 新的一歲吃不胖、睡得好、天天都有好心情！✨'
     };
@@ -79,8 +81,11 @@ const ConfigManager = {
       if (saved) {
         const parsed = JSON.parse(saved);
         // If saved config still had the initial placeholder, replace with Bobo's real text
-        if (parsed.cardLetter && (!parsed.cardLetter.includes('不知不覺') || parsed.cardLetter.includes('親愛的'))) {
+        if (parsed.cardLetter && (!parsed.cardLetter.includes('安乾鎬') || !parsed.cardLetter.includes('不知不覺') || parsed.cardLetter.includes('親愛的'))) {
           delete parsed.cardLetter;
+        }
+        if (parsed.photo2Caption && parsed.photo2Caption.includes('Catherine 賴品岑')) {
+          delete parsed.photo2Caption;
         }
         if (parsed.recipientName === 'Catherine') {
           parsed.recipientName = '賴品岑';
@@ -631,7 +636,7 @@ const App = {
     if (heroName) heroName.textContent = c.recipientName || '賴品岑';
 
     const heroEn = document.getElementById('heroEnglishName');
-    if (heroEn) heroEn.textContent = (c.recipientNickname ? c.recipientNickname + ' (' + (c.recipientEnglish || 'Catherine') + ')' : c.recipientEnglish || 'Catherine');
+    if (heroEn) heroEn.textContent = c.recipientNickname || c.recipientEnglish || 'Patty';
 
     const letterTo = document.getElementById('letterToName');
     if (letterTo) letterTo.textContent = c.recipientNickname || 'Patty';
@@ -656,7 +661,7 @@ const App = {
     if (cap1) cap1.textContent = c.photo1Caption || '✨ 願妳的每一歲都奔走在熱愛裡 ‧ 永遠閃亮的 Patty ✨';
 
     const cap2 = document.getElementById('photo2CaptionText');
-    if (cap2) cap2.textContent = c.photo2Caption || '💖 友情展開第三年 ‧ 全世界最棒的 Catherine 賴品岑 💖';
+    if (cap2) cap2.textContent = c.photo2Caption || '💖 在 Catherine 課堂展開第三年友情 ‧ 全世界最棒的 Patty 賴品岑 💖';
 
     // Card Letter Text
     const letterBody = document.getElementById('letterBodyText');
